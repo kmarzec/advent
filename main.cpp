@@ -16,8 +16,6 @@ int IterateAndAddIfDigitWithOffsetIsEqual(const std::string& input, std::string:
 {
     int result = 0;
 
-    assert((input.size() % 2) == 0);
-
     for (std::string::size_type i = 0; i < input.size(); ++i)
     {
         char first = input[i];
