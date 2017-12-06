@@ -9,6 +9,7 @@
 #include <memory.h>
 #include "windows.h"
 
+
 void PrintDbg(const char* format, ...)
 {
     va_list args;
@@ -18,6 +19,9 @@ void PrintDbg(const char* format, ...)
     OutputDebugStringA(buffer);
     va_end(args);
 }
+
+#include "day6.h"
+
 
 int IterateAndAddIfDigitWithOffsetIsEqual(const std::string& input, std::string::size_type offset)
 {
@@ -2106,7 +2110,9 @@ int main()
    // Day3();
    // Day4(); 
 
-    Day5();
+    //Day5();
+
+    Day6();
 
     return 0;
 }
