@@ -7,8 +7,10 @@
 #include <algorithm>
 #include <set>
 #include <memory.h>
+#include <cstdio>
+#include <memory>
+#include <map>
 #include "windows.h"
-
 
 void PrintDbg(const char* format, ...)
 {
@@ -21,6 +23,7 @@ void PrintDbg(const char* format, ...)
 }
 
 #include "day6.h"
+#include "day7.h"
 
 
 int IterateAndAddIfDigitWithOffsetIsEqual(const std::string& input, std::string::size_type offset)
@@ -166,7 +169,6 @@ int GetResultOfDivideWithNoRemainder(const std::string& line)
 void Day2_2(const std::string& task, const std::string& input)
 {
 	std::stringstream inputStream(input);
-	std::string line;
 	int divSum = 0;
 	for (std::string line; std::getline(inputStream, line);)
 	{
@@ -2112,7 +2114,8 @@ int main()
 
     //Day5();
 
-    Day6();
+    //Day6();
+    Day7();
 
     return 0;
 }
