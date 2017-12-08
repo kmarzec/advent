@@ -74,7 +74,7 @@ ProgramPtr BuildTree(const std::string& input)
 }
 
 
-int ValidateWeight(ProgramPtr program)
+int ValidateWeight(ProgramPtr program, ProgramPtr& outModifiedProgram)
 {
     assert(program);
 
@@ -89,7 +89,7 @@ int ValidateWeight(ProgramPtr program)
     int totalWeight = program->weigth;
     for (ProgramPtr child : program->children)
     {
-        int childWeight = ValidateWeight(child);
+        int childWeight = ValidateWeight(child, outModifiedProgram);
         weightOccurences[childWeight].first++;
         weightOccurences[childWeight].second = child;
         totalWeight += childWeight;
@@ -99,24 +99,30 @@ int ValidateWeight(ProgramPtr program)
     {
         assert(weightOccurences.size() == 2);
 
-        ProgramPtr toFix;
-        ProgramPtr other;
+        std::pair<int, std::pair<int, ProgramPtr>> toFix;
+        std::pair<int, std::pair<int, ProgramPtr>> other;
         for (auto& kv : weightOccurences)
         {
             if (kv.second.first == 1)
             {
-                toFix = kv.second.second;
+                toFix = kv;
             }
             else
             {
-                other = kv.second.second;
+                other = kv;
             }
         }
 
-        assert(toFix);
-        assert(other);
+        assert(toFix.second.second);
+        assert(other.second.second);
 
-        totalWeight = -1;
+        assert(!outModifiedProgram);
+        outModifiedProgram = toFix.second.second;
+
+        int weightDiff = other.first - toFix.first;
+        toFix.second.second->weigth += weightDiff;
+
+        totalWeight += weightDiff;
     }
 
     return totalWeight;
@@ -126,9 +132,11 @@ void Day7_2(const std::string& task, const std::string& input)
 {
     ProgramPtr root = BuildTree(input);
     assert(root);
-    ValidateWeight(root);
+    ProgramPtr toFix;
+    ValidateWeight(root, toFix);
+    assert(toFix);
 
-    PrintDbg("Day7_2 %s: %s\n", task.c_str(), root->name.c_str());
+    PrintDbg("Day7_2 %s: %d\n", task.c_str(), toFix->weigth);
 }
 
 
@@ -1342,8 +1350,10 @@ tnmtz (26))";
     
     Day7_1("sample", sample);
 
-   // Day7_1("puzzle", input1 + input2);
+    Day7_1("puzzle", input1 + input2);
 
     Day7_2("sample", sample);
+
+    Day7_2("puzzle", input1 + input2);
 
 }

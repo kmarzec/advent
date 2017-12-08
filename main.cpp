@@ -24,6 +24,7 @@ void PrintDbg(const char* format, ...)
 
 #include "day6.h"
 #include "day7.h"
+#include "day8.h"
 
 
 int IterateAndAddIfDigitWithOffsetIsEqual(const std::string& input, std::string::size_type offset)
@@ -2115,7 +2116,8 @@ int main()
     //Day5();
 
     //Day6();
-    Day7();
+    //Day7();
+    Day8();
 
     return 0;
 }
